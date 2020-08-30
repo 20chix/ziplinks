@@ -33,15 +33,16 @@
               We run from donations
               <v-icon>far fa-smile-wink</v-icon>
             </div>-->
+            <v-col cols="12" sm="10" md="8" lg="6" xl="4">
+              <v-card class="mx-auto" elevation="15" max-width="90%">
+                <!-- <v-card-title>Example of @ziplinks page</v-card-title> -->
 
-            <v-card class="mx-auto" elevation="15" max-width="90%">
-              <!-- <v-card-title>Example of @ziplinks page</v-card-title> -->
-
-              <v-img src="../assets/example.png" height="70%"></v-img>
-              <a href="https://ziplinks.me/ziplinks">
-                <v-card-subtitle>Example of @ziplinks page</v-card-subtitle>
-              </a>
-            </v-card>
+                <v-img src="../assets/example.png" height="70%"></v-img>
+                <a href="https://ziplinks.me/ziplinks">
+                  <v-card-subtitle>Example of @ziplinks page</v-card-subtitle>
+                </a>
+              </v-card>
+            </v-col>
           </center>
         </v-flex>
       </v-layout>
