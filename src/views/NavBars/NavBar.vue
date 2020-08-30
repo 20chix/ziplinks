@@ -3,19 +3,18 @@
     <v-app-bar class="white" flat app clipped-left>
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
       <v-toolbar-title class="font-weight-bold">
-        <router-link to="/" class="black--text" style="text-decoration: none">Glans At Me</router-link>
+        <router-link to="/" class="black--text" style="text-decoration: none">
+          <v-avatar size="45px">
+            <v-img contain src="../../assets/ziplinks_logo.png" transition="scale-transition" />
+          </v-avatar> Zip Links
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-          <v-btn large depressed  color="white" @click="logout()"> 
-            <v-icon size="25">mdi-login</v-icon>
-            Logout
-          </v-btn>
-
-
+      <v-btn large depressed color="white" @click="logout()">
+        <v-icon size="25">mdi-login</v-icon>Logout
+      </v-btn>
     </v-app-bar>
-
-
   </nav>
 </template>
 
@@ -23,9 +22,7 @@
 /* eslint-disable */
 const fb = require("../../firebaseConfig");
 export default {
-  data: () => ({
-    
-  }),
+  data: () => ({}),
 
   methods: {
     logout() {
@@ -35,20 +32,19 @@ export default {
           this.$store.dispatch("clearData");
           this.$router.push("/landing");
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-    }
-  }
-
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 #navbar {
   .active-item {
     .v-list-item__icon {
-      color: #bf8975   !important;
+      color: #bf8975 !important;
     }
   }
   .v-navigation-drawer__border {
