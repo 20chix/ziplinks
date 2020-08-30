@@ -61,8 +61,8 @@ export const store = new Vuex.Store({
         fetchUserProfile({ commit, state, dispatch }) {
             fb.usersCollection.doc(state.currentUser.uid).get().then(res => {
                 commit('setUserProfile', res.data())
-               // console.log("User data")
-              //  console.log(res.data())
+                // console.log("User data")
+                //  console.log(res.data())
                 // dispatch('updatePosts')
             }).catch(err => {
                 console.log(err)
@@ -113,45 +113,55 @@ export const store = new Vuex.Store({
                 .where("username", "==", state.searchedUser.username)
                 .get()
                 .then(function (querySnapshot) {
-                    querySnapshot.forEach(function (doc) {
-                        // User exist
-                        state.searchedUser.userExist = true;
-                        // doc.data() is never undefined for query doc snapshots
-                        // console.log(doc.id, " => ", doc.data());
+                    if (querySnapshot.empty) {
+                        console.log("Does not exist")
+                        // User not exist
+                        self.commit("setLoadingLink", false)
+                        state.searchedUser.userExist = false;
+                    } else {
+                        querySnapshot.forEach(function (doc) {
+                            // User exist
+                            state.searchedUser.userExist = true;
+                            // doc.data() is never undefined for query doc snapshots
+                            // console.log(doc.id, " => ", doc.data());
 
-                        // For debuggin purpose    
-                        // console.log("Insideee " + self.state.currentUser.uid)
-                        tempUserDetails = doc.data();
-                        state.searchedUser.userID = doc.id;
-                        state.searchedUser.userProfileImage = tempUserDetails.profileImage;
-                        state.searchedUser.email = tempUserDetails.email;
-                        self.commit("setSearchedUserEmail", state.searchedUser.email);
-                        self.commit("setSearchedUserUUID", doc.id);
+                            // For debuggin purpose    
+                            // console.log("Insideee " + self.state.currentUser.uid)
+                            tempUserDetails = doc.data();
+                            state.searchedUser.userID = doc.id;
+                            state.searchedUser.userProfileImage = tempUserDetails.profileImage;
+                            state.searchedUser.email = tempUserDetails.email;
+                            self.commit("setSearchedUserEmail", state.searchedUser.email);
+                            self.commit("setSearchedUserUUID", doc.id);
 
 
-                        firebase
-                            .firestore()
-                            .collection("users/" + doc.id + "/links")
-                            .get()
-                            .then(function (querySnapshot) {
-                                if (!querySnapshot.empty) {
-                                    querySnapshot.forEach(function (doc) {
-                                        state.userLinks.push(doc.data());
+                            firebase
+                                .firestore()
+                                .collection("users/" + doc.id + "/links")
+                                .get()
+                                .then(function (querySnapshot) {
+                                    if (!querySnapshot.empty) {
+                                        querySnapshot.forEach(function (doc) {
+                                            state.userLinks.push(doc.data());
+                                            self.commit("setLoadingLink", false)
+                                            // console.log(doc.data());
+                                        });
+
+                                    } else {
                                         self.commit("setLoadingLink", false)
-                                       // console.log(doc.data());
-                                    });
-                                    
-                                }else{
-                                    self.commit("setLoadingLink", false)
-                                }
-                            })
-                            .catch(function (error) {
-                                console.log("Error getting documents: ", error);
-                            });
+                                    }
+                                })
+                                .catch(function (error) {
+                                    console.log("Error getting documents: ", error);
+                                });
 
 
 
-                    });
+                        });
+
+                    }
+
+
                 })
                 .catch(function (error) {
                     state.searchedUser.userExist = false;
@@ -196,14 +206,14 @@ export const store = new Vuex.Store({
             }
 
         },
-        setLoadingLink(state, val){
+        setLoadingLink(state, val) {
             if (val) {
                 state.linksLoaded = val
             } else {
                 state.linksLoaded = false
             }
         },
-        setLoadingImageChange(state, val){
+        setLoadingImageChange(state, val) {
             if (val) {
                 state.imageLoaded = val
             } else {

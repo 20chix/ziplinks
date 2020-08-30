@@ -2,10 +2,9 @@
   <div class="profille">
     <v-flex>
       <center>
-        <h1 class="display-1">@{{searchedUser.username}}</h1>
-        <br />
 
-        <div v-if="this.searchedUser.userProfileImage!= null">
+
+        <div v-if="this.searchedUser.userProfileImage!= null && this.searchedUser.userExist">
           <v-avatar :size="200" color="grey lighten-4">
             <!-- TODO find a better way to update image from browser cache
             maybe use date and time-->
@@ -22,7 +21,10 @@
             </v-img>
           </v-avatar>
         </div>
-
+        <br />
+        <h1 class="display-1" v-if="!this.linksLoaded && this.searchedUser.userExist">@{{searchedUser.username}}</h1>
+        <h1 class="display-1" v-else-if="!this.linksLoaded">This user <strong>doesn't exist</strong>, double check with whoever gave you the link</h1>
+        <br />
         <v-col cols="12" sm="6" v-for="userLinks in this.userLinks" :key="userLinks.message">
           <v-btn color="primary" class="ml-1" block x-large outlined :href="userLinks.linkUrl" target="_blank">
             <v-icon left large v-if="userLinks.iconButton == 'Snapchat'">mdi-snapchat</v-icon>
