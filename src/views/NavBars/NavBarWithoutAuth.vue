@@ -6,7 +6,7 @@
         <router-link to="/" class="black--text" style="text-decoration: none">
           <v-avatar size="45px">
             <v-img contain src="../../assets/ziplinks_logo.png" transition="scale-transition" />
-          </v-avatar>Zip Links
+          </v-avatar>  Zip Links
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
