@@ -179,7 +179,7 @@ import { mapState } from "vuex";
 import { store } from "../store";
 import router from "../router/";
 const fb = require("../firebaseConfig");
-import firebase from "firebase";
+import firebase from 'firebase/app';
 
 export default {
   name: "Home",

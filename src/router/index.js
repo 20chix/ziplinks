@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Landing from '../views/Landing.vue'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 
 Vue.use(Router)
 

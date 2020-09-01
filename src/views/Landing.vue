@@ -14,16 +14,32 @@
               Zip all your links into a single
               <strong>link</strong> for free!
             </h1>
-            <br />
-            <v-card-subtitle>
+            <h4 class="display-6 font-weight-light">The only link you'll ever need for free!</h4>
+
+            <v-card-subtitle class="font-weight-light">
               For real, no hidden fees
               <v-icon>fas fa-smile-wink</v-icon>
             </v-card-subtitle>
             <br />
             <br />
+
+            <p class="font-weight-light text-center">
+              Example this is our page with all social media links
+              <br />
+              <v-btn
+                class="ma-4"
+                outlined
+                rounded
+                color="orange"
+                x-large
+                href="https://ziplinks.me/ziplinks"
+                target="_blank"
+              >ziplinks.me/ziplinks</v-btn>
+            </p>
+
             <!-- <h1 class="display-0.5">Signup for free, and use it for free!</h1> -->
 
-            <v-btn class="ma-4" outlined color="black" x-large>Lear More</v-btn>
+            <v-btn class="ma-4" outlined color="black" x-large href="#how_it_works" >Learn More</v-btn>
             <v-btn class="ma-4" rounded color="black" dark x-large to="/login">Sign Up</v-btn>
 
             <br />
@@ -41,6 +57,63 @@
                 <a href="https://ziplinks.me/ziplinks">
                   <v-card-subtitle>Example of @ziplinks page</v-card-subtitle>
                 </a>
+              </v-card>
+              <br />
+              <v-card class="mx-auto" elevation="15" max-width="90%" id="how_it_works">
+                <v-card-title>
+                  <h1>How it works?</h1>
+                </v-card-title>
+                <v-col cols="12" sm="12">
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Simply Sign Up with your email, is free
+                  </h2>
+                  <br />
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Add your profile image
+                  </h2>
+                  <br />
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Now let's add some links
+                  </h2>
+                  <br />
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Name the button to anything you want, example a social media name
+                  </h2>
+                  <br />
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Paste your link
+                  </h2>
+                  <br />
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Choose an icon from the drop down menu (optional)
+                  </h2>
+                  <br />
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Click Add This Link, that's it
+                    <v-icon>fas fa-smile-wink</v-icon>
+                  </h2>
+                  <br />
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Add as many links as you want to
+                  </h2>
+                  <br />
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Then share your profile link with anyone
+                  </h2>
+                  <h2 class="font-weight-light text-left">
+                    <v-icon small>fas fa-terminal</v-icon>Example this is our ziplinks profile
+                    <a
+                      href="https://ziplinks.me/ziplinks"
+                      target="_blank"
+                    >
+                      <code>ziplinks.me/ziplinks</code>
+                    </a>
+                  </h2>
+                </v-col>
+                <!-- <v-img src="../assets/example.png" height="70%"></v-img>
+                <a href="https://ziplinks.me/ziplinks">
+                <v-card-subtitle>Example of @ziplinks page</v-card-subtitle>-->
+                <!-- </a> -->
               </v-card>
             </v-col>
           </center>

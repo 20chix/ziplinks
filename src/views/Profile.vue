@@ -60,7 +60,6 @@
 import { mapState, mapGetters } from "vuex";
 import { store } from "../store";
 const fb = require("../firebaseConfig");
-import firebase from "firebase";
 import router from "../router/";
 
 export default {

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 const fb = require('./firebaseConfig.js')
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 
 Vue.use(Vuex)
@@ -47,8 +47,6 @@ export const store = new Vuex.Store({
         clearData({ commit }) {
             commit('setCurrentUser', null)
             commit('setUserProfile', {})
-            commit('setPosts', null)
-            commit('setHiddenPosts', null)
         },
         clearSearchedUserData({ commit }) {
             commit('setSearchedUserFollowersNumber', 0)
