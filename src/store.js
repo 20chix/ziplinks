@@ -110,7 +110,7 @@ export const store = new Vuex.Store({
             state.searchedUser.userExist = false;
 
             fb.usersCollection
-                .where("username", "==", state.searchedUser.username)
+                .where("username_lowercase", "==", state.searchedUser.username.toLowerCase())
                 .get()
                 .then(function (querySnapshot) {
                     if (querySnapshot.empty) {
