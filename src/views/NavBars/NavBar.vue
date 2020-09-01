@@ -12,7 +12,7 @@
       <v-spacer></v-spacer>
 
       <v-btn large depressed color="white" @click="logout()">
-        <v-icon size="25">mdi-login</v-icon>Logout
+        <v-icon size="25">mdi-logout</v-icon>Logout
       </v-btn>
     </v-app-bar>
   </nav>
