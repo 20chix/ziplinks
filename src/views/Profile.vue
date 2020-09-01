@@ -39,6 +39,8 @@
             <v-icon left large v-if="userLinks.iconButton == 'Apple'">mdi-apple</v-icon>
             <v-icon left large v-if="userLinks.iconButton == 'Tik Tok'">fab fa-tiktok</v-icon>
             <v-icon  left large v-if="userLinks.iconButton == 'GitHub'">fab fa-github</v-icon>
+            <v-icon  left large v-if="userLinks.iconButton == 'Reddit'">fab fa-reddit</v-icon>
+            <v-icon  left large v-if="userLinks.iconButton == 'Google'">fab fa-google</v-icon>
            <span style="margin-left: 5px;">{{ userLinks.nameButton }}</span> 
           </v-btn>
         </v-col>
