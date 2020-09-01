@@ -36,7 +36,7 @@
       </v-btn>
       <!-- For debugging purpose -->
       <!-- <p>{{this.imageLoaded}}</p>
-      <p>{{this.spinnerBooleanCheck}}</p> -->
+      <p>{{this.spinnerBooleanCheck}}</p>-->
 
       <!-- Need to have this in order to pick the image  -->
       <v-layout row>
@@ -160,6 +160,31 @@
             </v-btn>
           </v-flex>
         </v-layout>
+
+        <br />
+        <br />
+        <br />
+
+        <!-- Donation button from Pay Pal -->
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick" />
+          <input type="hidden" name="hosted_button_id" value="4GGQPQXMZFGYY" />
+          <input
+            type="image"
+            src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif"
+            border="0"
+            name="submit"
+            title="PayPal - The safer, easier way to pay online!"
+            alt="Donate with PayPal button"
+          />
+          <img
+            alt
+            border="0"
+            src="https://www.paypal.com/en_GB/i/scr/pixel.gif"
+            width="1"
+            height="1"
+          />
+        </form>
       </v-container>
     </center>
     <!-- Spinner for loading all this links -->
@@ -179,7 +204,7 @@ import { mapState } from "vuex";
 import { store } from "../store";
 import router from "../router/";
 const fb = require("../firebaseConfig");
-import firebase from 'firebase/app';
+import firebase from "firebase/app";
 
 export default {
   name: "Home",
@@ -305,7 +330,7 @@ export default {
         .doc(_userLinks.docId)
         .set(_userLinks)
         .then(() => {
-         // console.log("Successfully pushed to firebase");
+          // console.log("Successfully pushed to firebase");
           this.spinnerBooleanCheck = false;
         })
         .catch((err) => {
@@ -338,7 +363,7 @@ export default {
           if (!querySnapshot.empty) {
             querySnapshot.forEach(function (doc) {
               // self.temp2Object ==  doc.data();
-             // console.log(doc.data());
+              // console.log(doc.data());
               self.userLinks.push(doc.data());
               self.spinnerBooleanCheck = false;
             });
@@ -378,7 +403,7 @@ export default {
         function (snapshot) {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress =
-           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
         },
         function (error) {
@@ -394,9 +419,9 @@ export default {
               //console.log("File available at", downloadURL);
               self.imageStorageUrl = downloadURL;
 
-             // console.log("File available at", downloadURL);
-             // var currentDate = new Date();
-             // console.log("image url plus date " + downloadURL + currentDate);
+              // console.log("File available at", downloadURL);
+              // var currentDate = new Date();
+              // console.log("image url plus date " + downloadURL + currentDate);
               self.spinnerBooleanCheck = false;
               fb.usersCollection
                 .doc(tempUser.uid)
@@ -408,7 +433,7 @@ export default {
                   store.dispatch("fetchUserProfile");
                 })
                 .then(function () {
-                 // console.log("Document successfully updated!");
+                  // console.log("Document successfully updated!");
 
                   store.commit("setLoadingImageChange", false);
                 })

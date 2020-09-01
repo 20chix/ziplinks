@@ -39,7 +39,7 @@
 
             <!-- <h1 class="display-0.5">Signup for free, and use it for free!</h1> -->
 
-            <v-btn class="ma-4" outlined color="black" x-large href="#how_it_works" >Learn More</v-btn>
+            <v-btn class="ma-4" outlined color="black" x-large href="#how_it_works">Learn More</v-btn>
             <v-btn class="ma-4" rounded color="black" dark x-large to="/login">Sign Up</v-btn>
 
             <br />
@@ -110,11 +110,34 @@
                     </a>
                   </h2>
                 </v-col>
-                <!-- <v-img src="../assets/example.png" height="70%"></v-img>
-                <a href="https://ziplinks.me/ziplinks">
-                <v-card-subtitle>Example of @ziplinks page</v-card-subtitle>-->
-                <!-- </a> -->
+
+                <br />
+
+
               </v-card>
+              <br />
+              <br />
+              <br />
+              <!-- Donation button from Pay Pal -->
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick" />
+                <input type="hidden" name="hosted_button_id" value="4GGQPQXMZFGYY" />
+                <input
+                  type="image"
+                  src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif"
+                  border="0"
+                  name="submit"
+                  title="PayPal - The safer, easier way to pay online!"
+                  alt="Donate with PayPal button"
+                />
+                <img
+                  alt
+                  border="0"
+                  src="https://www.paypal.com/en_GB/i/scr/pixel.gif"
+                  width="1"
+                  height="1"
+                />
+              </form>
             </v-col>
           </center>
         </v-flex>
