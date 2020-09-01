@@ -111,7 +111,7 @@
           <v-card-text>
             <div class="display-1 text--primary">Let's add this link!!!</div>
           </v-card-text>
-          <v-col cols="12" sm="6">
+          <v-col cols="12" sm="12">
             <v-form ref="form" v-model="validAddLink" lazy-validation>
               <v-text-field
                 :rules="nameRules"
