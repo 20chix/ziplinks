@@ -9,14 +9,14 @@ import 'firebase/functions';   // for cloud functions
 
 // firebase init goes here
 const config = {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
-    measurementId: ""
+    apiKey: "AIzaSyCzV4UQkP3DoF6aDUDmA5ahWOv23wKaMJU",
+    authDomain: "glanceprofile.firebaseapp.com",
+    databaseURL: "https://glanceprofile.firebaseio.com",
+    projectId: "glanceprofile",
+    storageBucket: "glanceprofile.appspot.com",
+    messagingSenderId: "369000783162",
+    appId: "1:369000783162:web:81da8073d60b0218e24403",
+    measurementId: "G-240844L6G2"
 }
 firebase.initializeApp(config)
 

@@ -10,7 +10,7 @@
     </div>
 
     <div class="text-center">
-      <div v-if="userProfile.profileImage!= null">
+      <div v-if="this.userProfile.profileImage!= null">
         <v-avatar
           :size="150"
           :max-height="150"
@@ -37,16 +37,15 @@
 
       <v-container>
         <v-row>
-
           <v-col cols="12">
-                      <center>
-            <v-tooltip v-model="showToolTip" top>
-              <template v-slot:activator="{ on, attrs }">
-                <span icon v-bind="attrs" v-on="on"></span>
-              </template>
-              <span>Copied!</span>
-            </v-tooltip>
-          </center>
+            <center>
+              <v-tooltip v-model="showToolTip" top>
+                <template v-slot:activator="{ on, attrs }">
+                  <span icon v-bind="attrs" v-on="on"></span>
+                </template>
+                <span>Copied!</span>
+              </v-tooltip>
+            </center>
             <v-text-field
               class="ma-4"
               label="Here is your link "
@@ -241,7 +240,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+/* eslint-disable */
 import { mapState } from "vuex";
 import { store } from "../store";
 import router from "../router/";
@@ -482,13 +481,14 @@ export default {
         },
         function () {
           // Upload completed successfully, now we can get the download URL
-          pathReference.snapshot.ref
+          fb.storage
+          .ref("profileImages/" + tempUser.uid + "_200x200")
             .getDownloadURL()
             .then(function (downloadURL) {
               //console.log("File available at", downloadURL);
               self.imageStorageUrl = downloadURL;
 
-              // console.log("File available at", downloadURL);
+              console.log("File available at", downloadURL);
               // var currentDate = new Date();
               // console.log("image url plus date " + downloadURL + currentDate);
               self.spinnerBooleanCheck = false;
