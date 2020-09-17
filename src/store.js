@@ -112,7 +112,7 @@ export const store = new Vuex.Store({
                             // console.log("Insideee " + self.state.currentUser.uid)
                             tempUserDetails = doc.data();
                             state.searchedUser.userID = doc.id;
-                                console.log(doc.id)
+                            console.log(doc.id)
                             fb.storage
                                 .ref("profileImages/" + doc.id + "_200x200")
                                 .getDownloadURL().then(function (url) {
@@ -128,25 +128,15 @@ export const store = new Vuex.Store({
                                         case 'storage/object-not-found':
                                             // File doesn't exist
                                             fb.storage
-                                            .ref("profileImages/" + doc.id)
-                                            .getDownloadURL().then(function (url) {
-                                                // Insert url into an <img> tag to "download"
-                                                console.log("url" + url)
-                                                state.searchedUser.userProfileImage = url;
-            
-                                            });
-                                            break;
+                                                .ref("profileImages/" + doc.id)
+                                                .getDownloadURL().then(function (url) {
+                                                    // Insert url into an <img> tag to "download"
+                                                    console.log("url" + url)
+                                                    state.searchedUser.userProfileImage = url;
+                                                }).catch(function (error) {
+                                                    state.searchedUser.userProfileImage = "https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/profileNotSet.png?alt=media&token=8e2606ce-bfb3-454f-a2da-e88a466758a8";
 
-                                        case 'storage/unauthorized':
-                                            // User doesn't have permission to access the object
-                                            break;
-
-                                        case 'storage/canceled':
-                                            // User canceled the upload
-                                            break;
-
-                                        case 'storage/unknown':
-                                            // Unknown error occurred, inspect the server response
+                                                });
                                             break;
                                     }
                                 });
