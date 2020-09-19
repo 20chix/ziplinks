@@ -41,5 +41,6 @@ export {
     currentUser,
     storage,
     usersCollection,
+    firebase
    
 }

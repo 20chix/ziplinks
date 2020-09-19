@@ -167,7 +167,6 @@ export default {
   name: "Landing",
 
   data: () => ({
-    //
     fill: true,
     gradient: gradients[0],
     gradients,
@@ -176,6 +175,6 @@ export default {
     value: [0, 2, 0, 5, 0, 1, 0, 7, 0, 4, 0, 2],
     width: 2,
   }),
-  watch: {},
+
 };
 </script>

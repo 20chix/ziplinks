@@ -21,6 +21,7 @@
 import NavBarWithoutAuth from "./views/NavBars/NavBarWithoutAuth";
 import NavBar from "./views/NavBars/NavBar";
 import { mapState } from "vuex";
+import firebase from 'firebase/app';
 
 export default {
   name: "App",
@@ -35,7 +36,8 @@ export default {
   }),
 
   beforeMount() {
-    //
+    //Initialize firebase analytics
+    firebase.analytics();
   },
   computed: {
     ...mapState(["currentUser"]),

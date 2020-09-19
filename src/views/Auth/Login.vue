@@ -11,7 +11,7 @@
       <div v-if="performingRequest" class="loading">
         <p>Loading...</p>
       </div>
-    </transition> -->
+    </transition>-->
 
     <v-layout row justify-center>
       <v-flex xs10 order-lg2>
@@ -171,6 +171,9 @@ export default {
       errorMsg: "",
     };
   },
+  beforeMount() {
+    fb.firebase.analytics().logEvent("signup_page_loaded");
+  },
   methods: {
     toggleForm() {
       this.errorMsg = "";
@@ -209,6 +212,8 @@ export default {
         });
     },
     signup() {
+      fb.firebase.analytics().logEvent("signup_button_pressed");
+
       this.errorMsg = "";
       this.performingRequest = true;
 
