@@ -10,7 +10,7 @@
         {{ new Date().getFullYear() }} —
         <strong>
           Made with
-          <v-icon>fas fa-heart</v-icon> by Hadi
+          <v-icon>fas fa-heart</v-icon>by Hadi
         </strong>
       </v-col>
     </v-footer>
@@ -21,7 +21,8 @@
 import NavBarWithoutAuth from "./views/NavBars/NavBarWithoutAuth";
 import NavBar from "./views/NavBars/NavBar";
 import { mapState } from "vuex";
-import firebase from 'firebase/app';
+import firebase from 'firebase';
+
 
 export default {
   name: "App",
@@ -34,7 +35,6 @@ export default {
   data: () => ({
     //
   }),
-
   beforeMount() {
     //Initialize firebase analytics
     firebase.analytics();

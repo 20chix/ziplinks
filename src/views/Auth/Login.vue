@@ -147,6 +147,7 @@
 <script>
 /* eslint-disable */
 const fb = require("../../firebaseConfig");
+import firebase from "firebase";
 
 export default {
   data() {
@@ -172,7 +173,7 @@ export default {
     };
   },
   beforeMount() {
-    fb.firebase.analytics().logEvent("signup_page_loaded");
+    firebase.analytics().logEvent("signup_page_loaded");
   },
   methods: {
     toggleForm() {
@@ -190,6 +191,7 @@ export default {
       }
     },
     login() {
+      firebase.analytics().logEvent("login_button_pressed");
       this.performingRequest = true;
       //console.log("user email " + this.loginForm.email);
 
@@ -212,7 +214,7 @@ export default {
         });
     },
     signup() {
-      fb.firebase.analytics().logEvent("signup_button_pressed");
+     firebase.analytics().logEvent("signup_button_pressed");
 
       this.errorMsg = "";
       this.performingRequest = true;
