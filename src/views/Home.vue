@@ -35,6 +35,7 @@
         <v-icon>mdi-pencil</v-icon>Change Image
       </v-btn>
 
+      <!-- Link copy component -->
       <v-container>
         <v-row>
           <v-col cols="12">
@@ -77,6 +78,9 @@
           </v-col>
         </v-row>
       </v-container>
+      <center>
+        <QuickAdd :userLinks="this.userLinks" />
+      </center>
       <!-- Need to have this in order to pick the image  -->
       <v-layout row>
         <v-flex xs12 lg6 offset-sm3>
@@ -93,9 +97,15 @@
 
     <center>
       <v-col cols="12" sm="6" v-for="_userLinks in userLinks" :key="_userLinks.message">
-        <!-- <li v-for="userLinks in userLinks" :key="userLinks.message">{{ userLinks.nameButton }}</li> -->
-
-        <v-card class="mx-auto" outlined>
+        <!-- Only show links that are not int quick link list -->
+        <v-card
+          class="mx-auto"
+          outlined
+          v-if="! _userLinks.linkUrl.includes('instagram') &&
+                ! _userLinks.linkUrl.includes('facebook')  &&
+                ! _userLinks.linkUrl.includes('twitter')   &&
+                ! _userLinks.linkUrl.includes('tiktok')"
+        >
           <v-col cols="12" sm="12">
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field
@@ -236,6 +246,10 @@
     <v-overlay :value="this.imageLoaded">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
+    <!-- General spinner controlled from store -->
+    <v-overlay :value="this.linksLoaded">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -246,6 +260,7 @@ import { store } from "../store";
 import router from "../router/";
 const fb = require("../firebaseConfig");
 import firebase from "firebase/app";
+import QuickAdd from "../components/QuickAdd";
 
 export default {
   name: "Home",
@@ -291,7 +306,7 @@ export default {
       nameButton: "",
       iconButton: "",
     },
-    userLinks: [],
+
     message: "Copy These Text",
     showToolTip: false,
   }),
@@ -299,13 +314,17 @@ export default {
   components: {
     //  HelloWorld
   },
-  beforeMount() {
-    this.fetchLinks();
+  components: {
+    QuickAdd,
   },
-
-  watch: {},
   computed: {
-    ...mapState(["userProfile", "currentUser", "imageLoaded"]),
+    ...mapState([
+      "userProfile",
+      "currentUser",
+      "imageLoaded",
+      "linksLoaded",
+      "userLinks",
+    ]),
   },
   methods: {
     onCopy() {
@@ -316,12 +335,14 @@ export default {
       alert("Failed to copy texts");
     },
     addLink() {
+      //Add http if the link doesn't cotain one
       if (
         !this.link.linkUrl.includes("http://") &&
         !this.link.linkUrl.includes("https://")
       ) {
         this.link.linkUrl = "http://" + this.link.linkUrl;
       }
+
       this.spinnerBooleanCheck = true;
       firebase
         .firestore()
@@ -405,7 +426,6 @@ export default {
           console.log(err);
         });
     },
-
     reset() {
       this.$refs.form.reset();
     },
@@ -414,34 +434,6 @@ export default {
     },
     previewPage() {
       router.push("/" + this.userProfile.username);
-    },
-
-    fetchLinks() {
-      let self = this;
-      self.spinnerBooleanCheck = true;
-      this.$store.dispatch("fetchUserProfile");
-      // console.log("User home");
-      // console.log(this.userProfile);
-
-      firebase
-        .firestore()
-        .collection("users/" + this.currentUser.uid + "/links")
-        .get()
-        .then(function (querySnapshot) {
-          if (!querySnapshot.empty) {
-            querySnapshot.forEach(function (doc) {
-              // self.temp2Object ==  doc.data();
-              // console.log(doc.data());
-              self.userLinks.push(doc.data());
-              self.spinnerBooleanCheck = false;
-            });
-          } else {
-            self.spinnerBooleanCheck = false;
-          }
-        })
-        .catch(function (error) {
-          console.log("Error getting documents: ", error);
-        });
     },
     onFilePicked(event) {
       this.$store.commit("setLoadingImageChange", true);
@@ -482,13 +474,13 @@ export default {
         function () {
           // Upload completed successfully, now we can get the download URL
           fb.storage
-          .ref("profileImages/" + tempUser.uid + "_200x200")
+            .ref("profileImages/" + tempUser.uid + "_200x200")
             .getDownloadURL()
             .then(function (downloadURL) {
               //console.log("File available at", downloadURL);
               self.imageStorageUrl = downloadURL;
 
-              console.log("File available at", downloadURL);
+              //console.log("File available at", downloadURL);
               // var currentDate = new Date();
               // console.log("image url plus date " + downloadURL + currentDate);
               self.spinnerBooleanCheck = false;

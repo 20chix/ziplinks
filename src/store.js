@@ -2,19 +2,55 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 const fb = require('./firebaseConfig.js')
 import firebase from "firebase/app";
+// import router from "./router/";
+
 
 
 Vue.use(Vuex)
-
 /* eslint-disable */
 // handle page reload
 fb.auth.onAuthStateChanged(user => {
+    store.commit("setLoadingLink", true)
+
     if (user) {
         store.commit('setCurrentUser', user)
-        // store.dispatch('fetchUserProfile')
+        store.dispatch('fetchUserProfile')
         //store.dispatch('setUserState')
+        firebase
+            .firestore()
+            .collection("users/" + user.uid + "/links")
+            .get()
+            .then(function (querySnapshot) {
+                if (!querySnapshot.empty) {
+                    querySnapshot.forEach(function (doc) {
+                        // Check if any of the links contains any from Quick Add
+                        if (doc.data().linkUrl.includes("instagram") ||
+                        doc.data().linkUrl.includes("facebook")  ||
+                        doc.data().linkUrl.includes("twitter")  ||
+                        doc.data().linkUrl.includes("tik")  
+                        ) {
+                          console.log("contain instagrasm");
+                          store.commit("setEditYourProfilesBool", true);
+
+                        }
+
+                        store.commit('setUserLinks', doc.data())
+                        store.commit("setLoadingLink", false)
+                    });
+                }else{
+                    store.commit("setLoadingLink", false)
+                }
+            })
+            .catch(function (error) {
+                console.log("Error getting documents: ", error);
+            });
+
     }
 })
+
+
+
+
 
 export const store = new Vuex.Store({
 
@@ -33,8 +69,13 @@ export const store = new Vuex.Store({
         },
         userLinks: [],
         linksLoaded: false,
-        imageLoaded: false
+        imageLoaded: false,
+        editoYourProfilesBool: false
 
+    },
+
+    getters: {
+        editoYourProfilesBool: state => state.editoYourProfilesBool
     },
     actions: {
         clearData({ commit }) {
@@ -42,6 +83,7 @@ export const store = new Vuex.Store({
             commit('setUserProfile', {})
         },
         fetchUserProfile({ commit, state, dispatch }) {
+            state.userLinks = []
             fb.usersCollection.doc(state.currentUser.uid).get().then(res => {
                 commit('setUserProfile', res.data())
                 // console.log("User data")
@@ -51,42 +93,14 @@ export const store = new Vuex.Store({
                 console.log(err)
             })
         },
-        updateProfile({ commit, state }, data) {
-            let username = data.username
-            let about = data.about
-            let monthlyFee = data.monthlyFee
-            let location = data.location
-
-            fb.usersCollection.doc(state.currentUser.uid).update({ username, about, monthlyFee, location }).then(user => {
-                // update all posts by user to reflect new name
-                fb.postsCollection.where('userId', '==', state.currentUser.uid).get().then(docs => {
-                    docs.forEach(doc => {
-                        fb.postsCollection.doc(doc.id).update({
-                            userName: username
-                        })
-                    })
-                })
-                // update all comments by user to reflect new name
-                fb.commentsCollection.where('userId', '==', state.currentUser.uid).get().then(docs => {
-                    docs.forEach(doc => {
-                        fb.commentsCollection.doc(doc.id).update({
-                            userName: username
-                        })
-                    })
-                })
-            }).catch(err => {
-                console.log(err)
-            })
-
-
-        },
-
 
         fetchUserFromLinkOrSearchBar({ commit, state }) {
             //Set loading bar to true
             this.commit("setLoadingLink", true)
+
             //Empty arrray before everything
             state.userLinks = []
+
             //Need this in order to work with FB inside the call
             let self = this
             let tempUserDetails = "";
@@ -97,7 +111,6 @@ export const store = new Vuex.Store({
                 .get()
                 .then(function (querySnapshot) {
                     if (querySnapshot.empty) {
-                        console.log("Does not exist")
                         // User not exist
                         self.commit("setLoadingLink", false)
                         state.searchedUser.userExist = false;
@@ -105,23 +118,15 @@ export const store = new Vuex.Store({
                         querySnapshot.forEach(function (doc) {
                             // User exist
                             state.searchedUser.userExist = true;
-                            // doc.data() is never undefined for query doc snapshots
-                            // console.log(doc.id, " => ", doc.data());
-
-                            // For debuggin purpose    
-                            // console.log("Insideee " + self.state.currentUser.uid)
+                            // Get user in a temp variable
                             tempUserDetails = doc.data();
                             state.searchedUser.userID = doc.id;
-                            console.log(doc.id)
                             fb.storage
                                 .ref("profileImages/" + doc.id + "_200x200")
                                 .getDownloadURL().then(function (url) {
-                                    // Insert url into an <img> tag to "download"
-                                    console.log("url" + url)
+                                    // By nowe the image shoulld be risezed to 200 by 200, get the url
                                     state.searchedUser.userProfileImage = url;
-
                                 }).catch(function (error) {
-
                                     // A full list of error codes is available at
                                     // https://firebase.google.com/docs/storage/web/handle-errors
                                     switch (error.code) {
@@ -141,12 +146,9 @@ export const store = new Vuex.Store({
                                     }
                                 });
 
-
-
                             state.searchedUser.email = tempUserDetails.email;
                             self.commit("setSearchedUserEmail", state.searchedUser.email);
                             self.commit("setSearchedUserUUID", doc.id);
-
 
                             firebase
                                 .firestore()
@@ -157,7 +159,6 @@ export const store = new Vuex.Store({
                                         querySnapshot.forEach(function (doc) {
                                             state.userLinks.push(doc.data());
                                             self.commit("setLoadingLink", false)
-                                            // console.log(doc.data());
                                         });
 
                                     } else {
@@ -167,14 +168,9 @@ export const store = new Vuex.Store({
                                 .catch(function (error) {
                                     console.log("Error getting documents: ", error);
                                 });
-
-
-
                         });
 
                     }
-
-
                 })
                 .catch(function (error) {
                     state.searchedUser.userExist = false;
@@ -182,6 +178,85 @@ export const store = new Vuex.Store({
                 });
         },
 
+        addSocialProfile({ commit, state }, socialLink) {
+            //Set loading bar to true
+            this.commit("setLoadingLink", true)
+            console.log(socialLink);
+            firebase
+                .firestore()
+                .collection("users/")
+                .doc(state.currentUser.uid)
+                .collection("links")
+                .add(socialLink)
+                .then((docRef) => {
+                    //Successfully pushed to firebase
+                    firebase
+                        .firestore()
+                        .collection("users/")
+                        .doc(state.currentUser.uid)
+                        .collection("links")
+                        .doc(docRef.id)
+                        .update({
+                            //Add the doc id into firebase child
+                            docId: docRef.id,
+                        })
+                        .then(() => {
+
+                            // Add the new Social profile into userLinks array
+                            state.userLinks.push(socialLink);
+                            // Show Edit Card just in case
+                            this.commit("setEditYourProfilesBool", true);
+                            // Stop loading  
+                            this.commit("setLoadingLink", false)
+
+                        });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+
+        updateSocialProfile({ commit, state }, socialLink) {
+            //Set loading bar to true
+            this.commit("setLoadingLink", true)
+            console.log(socialLink);
+            firebase
+                .firestore()
+                .collection("users/")
+                .doc(state.currentUser.uid)
+                .collection("links")
+                .doc(socialLink.docId)
+                .set(socialLink)
+                .then(() => {
+                    this.commit("setLoadingLink", false)
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        deleteSocialMediaProfile({ commit, state }, docId) {
+            // console.log("Post successfully deleted");
+            //Start spinner
+            this.commit("setLoadingLink", true)
+
+            firebase
+                .firestore()
+                .collection("users/")
+                .doc(state.currentUser.uid)
+                .collection("links")
+                .doc(docId)
+                .delete()
+                .then(() => {
+                    this.commit("setLoadingLink", false)
+                    state.userLinks.forEach(function (arrayItem, index) {
+                        if (arrayItem.docId === docId)
+                            state.userLinks.splice(index, 1);
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
     },
     mutations: {
         setCurrentUser(state, val) {
@@ -232,7 +307,25 @@ export const store = new Vuex.Store({
             } else {
                 state.imageLoaded = false
             }
-        }
+        },
+        setUserLinks(state, val) {
+            if (val) {
+                state.userLinks.push(val)
+            } else {
+                state.userLinks = []
+            }
+        }, setEditYourProfilesBool(state, val) {
+            if (val) {
+                state.editoYourProfilesBool = val
+            } else {
+                state.editoYourProfilesBool = false
+            }
+            console.log("Inside set")
+            console.log(state.editoYourProfilesBool)
+        },
+
+
+
 
     }
 })

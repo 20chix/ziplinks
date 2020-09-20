@@ -67,7 +67,6 @@
             <v-icon left large v-if="userLinks.iconButton == 'GitHub'">fab fa-github</v-icon>
             <v-icon left large v-if="userLinks.iconButton == 'Reddit'">fab fa-reddit</v-icon>
             <v-icon left large v-if="userLinks.iconButton == 'Google'">fab fa-google</v-icon>
-
             <v-icon left large v-if="userLinks.iconButton == 'Patreon'">fab fa-patreon</v-icon>
             <v-icon left large v-if="userLinks.iconButton == 'Telegram'">fab fa-telegram</v-icon>
             <v-icon left large v-if="userLinks.iconButton == 'Etsy'">fab fa-etsy</v-icon>
@@ -107,8 +106,8 @@ export default {
   beforeMount() {
     this.$store.commit("setSearchedUserUsername", this.$route.params.id);
     this.$store.dispatch("fetchUserFromLinkOrSearchBar");
-    console.log(this.linksLoaded);
-    console.log(this.searchedUser.userProfileImage);
+    //console.log(this.linksLoaded);
+    //console.log(this.searchedUser.userProfileImage);
 
     // console.log(this.linksLoaded)
   },
