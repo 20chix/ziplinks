@@ -36,7 +36,7 @@
         <br />
         <h1
           class="display-1"
-          v-if="!this.linksLoaded && this.searchedUser.userExist"
+          v-if="!this.linksLoaded && this.searchedUser.userExist && this.mounted"
         >@{{searchedUser.username}}</h1>
         <h1 class="display-1" v-else-if="!this.linksLoaded">
           This user
@@ -92,7 +92,9 @@ const fb = require("../firebaseConfig");
 import router from "../router/";
 
 export default {
-  data: () => ({}),
+  data: () => ({
+    mounted: false
+  }),
   computed: {
     ...mapState([
       "userProfile",
@@ -111,7 +113,9 @@ export default {
 
     // console.log(this.linksLoaded)
   },
-  mounted() {},
+  mounted() {
+    this.mounted = true
+  },
 
   watch: {
     // Check if the route is been called

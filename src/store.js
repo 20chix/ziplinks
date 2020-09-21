@@ -103,7 +103,6 @@ export const store = new Vuex.Store({
             //Need this in order to work with FB inside the call
             let self = this
             let tempUserDetails = "";
-            state.searchedUser.userExist = false;
 
             fb.usersCollection
                 .where("username_lowercase", "==", state.searchedUser.username.toLowerCase())
