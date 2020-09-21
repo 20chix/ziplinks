@@ -102,10 +102,10 @@
         <v-card
           class="mx-auto"
           outlined
-          v-if="! _userLinks.linkUrl.includes('instagram') &&
-                ! _userLinks.linkUrl.includes('facebook')  &&
-                ! _userLinks.linkUrl.includes('twitter')   &&
-                ! _userLinks.linkUrl.includes('tiktok')"
+          v-if="! _userLinks.linkUrl.includes('instagram.com') &&
+                ! _userLinks.linkUrl.includes('facebook.com')  &&
+                ! _userLinks.linkUrl.includes('twitter.com')   &&
+                ! _userLinks.linkUrl.includes('tiktok.com')"
         >
           <v-col cols="12" sm="12">
             <v-form ref="form" v-model="valid" lazy-validation>
