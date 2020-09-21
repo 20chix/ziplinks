@@ -25,18 +25,18 @@ fb.auth.onAuthStateChanged(user => {
                     querySnapshot.forEach(function (doc) {
                         // Check if any of the links contains any from Quick Add
                         if (doc.data().linkUrl.includes("instagram.com") ||
-                        doc.data().linkUrl.includes("facebook.com")  ||
-                        doc.data().linkUrl.includes("twitter.com")  ||
-                        doc.data().linkUrl.includes("tiktok.com")  
+                            doc.data().linkUrl.includes("facebook.com") ||
+                            doc.data().linkUrl.includes("twitter.com") ||
+                            doc.data().linkUrl.includes("tiktok.com")
                         ) {
-                          store.commit("setEditYourProfilesBool", true);
+                            store.commit("setEditYourProfilesBool", true);
 
                         }
 
                         store.commit('setUserLinks', doc.data())
                         store.commit("setLoadingLink", false)
                     });
-                }else{
+                } else {
                     store.commit("setLoadingLink", false)
                 }
             })
@@ -256,6 +256,40 @@ export const store = new Vuex.Store({
                     console.log(err);
                 });
         },
+        editUsername({ commit, state }, username) {
+            commit("setLoadingLink", true)
+            console.log("edit username " + username)
+            fb.usersCollection
+                .where("username_lowercase", "==", username)
+                .get()
+                .then(function (querySnapshot) {
+                    if (!querySnapshot.size >= 1) {
+                        fb.usersCollection
+                            .doc(state.currentUser.uid)
+                            .set({
+                                username: username,
+                                username_lowercase: username.toLowerCase(),
+                            }, { merge: true })
+                            .then(() => {
+                                //Stop loading
+                                commit("setLoadingLink", false)
+                                window.location.reload()
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                                //Stop loading
+                                commit("setLoadingLink", false)
+                            });
+
+                    } else {
+                        // Stop loading
+                        this.commit("setLoadingLink", false)
+                    }
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error);
+                });
+        }
     },
     mutations: {
         setCurrentUser(state, val) {
@@ -313,7 +347,7 @@ export const store = new Vuex.Store({
             } else {
                 state.userLinks = []
             }
-        }, 
+        },
         setEditYourProfilesBool(state, val) {
             if (val) {
                 state.editoYourProfilesBool = val

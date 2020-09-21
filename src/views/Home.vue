@@ -2,6 +2,7 @@
   <div class="home">
     <div class="text-center">
       <h1 class="display-1">@{{userProfile.username}}</h1>
+      <EditUsername />
       <br />
       <!-- Add edit button on next feature -->
       <!-- <v-btn class="ma-2" outlined small fab color="indigo">
@@ -261,6 +262,7 @@ import router from "../router/";
 const fb = require("../firebaseConfig");
 import firebase from "firebase/app";
 import QuickAdd from "../components/QuickAdd";
+import EditUsername from "../components/EditUsername/editUsername";
 
 export default {
   name: "Home",
@@ -316,6 +318,7 @@ export default {
   },
   components: {
     QuickAdd,
+    EditUsername,
   },
   computed: {
     ...mapState([
