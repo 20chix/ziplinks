@@ -137,6 +137,7 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <Footer />
     <!-- Spinner for loading the image profile -->
     <v-overlay :value="this.performingRequest">
       <v-progress-circular indeterminate size="64"></v-progress-circular>

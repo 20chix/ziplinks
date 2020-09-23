@@ -1,11 +1,13 @@
 <template>
   <v-app>
-    <NavBar v-if="currentUser" />
-    <NavBarWithoutAuth v-else />
+    <div v-if="this.showNavBar">
+      <NavBar v-if="currentUser " />
+      <NavBarWithoutAuth v-else />
+    </div>
     <v-main>
       <router-view />
     </v-main>
-    <v-footer width="100%" style=" bottom:0;" class="font-weight-medium">
+    <v-footer v-if="this.showFooter" width="100%" style=" bottom:0;" class="font-weight-medium">
       <v-col class="text-center" cols="12">
         {{ new Date().getFullYear() }} —
         <strong>
@@ -21,8 +23,7 @@
 import NavBarWithoutAuth from "./views/NavBars/NavBarWithoutAuth";
 import NavBar from "./views/NavBars/NavBar";
 import { mapState } from "vuex";
-import firebase from 'firebase';
-
+import firebase from "firebase";
 
 export default {
   name: "App",
@@ -40,7 +41,7 @@ export default {
     firebase.analytics();
   },
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState(["currentUser", "showFooter", "showNavBar"]),
   },
 };
 </script>

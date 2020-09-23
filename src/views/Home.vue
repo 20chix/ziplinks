@@ -2,7 +2,12 @@
   <div class="home">
     <div class="text-center">
       <h1 class="display-1">@{{userProfile.username}}</h1>
-      <EditUsername />
+
+      <center>
+        <EditUsername />
+        <Colour />
+      </center>
+      
       <br />
       <!-- Add edit button on next feature -->
       <!-- <v-btn class="ma-2" outlined small fab color="indigo">
@@ -263,6 +268,7 @@ const fb = require("../firebaseConfig");
 import firebase from "firebase/app";
 import QuickAdd from "../components/QuickAdd";
 import EditUsername from "../components/EditUsername/editUsername";
+import Colour from "../components/Colour/Colour"
 
 export default {
   name: "Home",
@@ -312,13 +318,14 @@ export default {
     message: "Copy These Text",
     showToolTip: false,
   }),
-
-  components: {
-    //  HelloWorld
+  beforeMount(){
+    this.$store.commit("setShowFooter", true)
+    this.$store.commit("setShowNavBar", true)
   },
   components: {
     QuickAdd,
     EditUsername,
+    Colour
   },
   computed: {
     ...mapState([

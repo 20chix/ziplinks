@@ -64,12 +64,15 @@ export const store = new Vuex.Store({
             userExist: false,
             username: "",
             userID: "",
-            userProfileImage: ""
+            userProfileImage: "",
+            background_colour: "#FFFFFF"
         },
         userLinks: [],
         linksLoaded: false,
         imageLoaded: false,
-        editoYourProfilesBool: false
+        editoYourProfilesBool: false,
+        showFooter : true,
+        showNavBar: true,
 
     },
 
@@ -119,6 +122,10 @@ export const store = new Vuex.Store({
                             // Get user in a temp variable
                             tempUserDetails = doc.data();
                             state.searchedUser.userID = doc.id;
+                            state.searchedUser.background_colour =  tempUserDetails.background_colour
+                            console.log("dddddd"+ tempUserDetails.background_colour)
+                            self.commit("setSearchedUserBackgroundColour", tempUserDetails.background_colour);
+
                             fb.storage
                                 .ref("profileImages/" + doc.id + "_200x200")
                                 .getDownloadURL().then(function (url) {
@@ -145,9 +152,9 @@ export const store = new Vuex.Store({
                                 });
 
                             state.searchedUser.email = tempUserDetails.email;
+                            
                             self.commit("setSearchedUserEmail", state.searchedUser.email);
                             self.commit("setSearchedUserUUID", doc.id);
-                            self.commit("setLoadingLink", false)
                             //Empty userLinks array so we don't get double data
                             store.commit('setUserLinks', null)
                             firebase
@@ -289,6 +296,25 @@ export const store = new Vuex.Store({
                 .catch(function (error) {
                     console.log("Error getting documents: ", error);
                 });
+        },
+        addUpdateColour({ commit, state }, colour){
+            //Start the loading
+            commit("setLoadingLink", true)
+            fb.usersCollection
+                .doc(state.currentUser.uid)
+                .set({
+                    background_colour: colour,
+                }, { merge: true })
+                .then(() => {
+                    //Stop loading
+                    commit("setLoadingLink", false)
+                })
+                .catch((err) => {
+                    console.log(err);
+                    //Stop loading
+                    commit("setLoadingLink", false)
+                });
+
         }
     },
     mutations: {
@@ -310,7 +336,14 @@ export const store = new Vuex.Store({
             }
 
         },
+        setSearchedUserBackgroundColour(state, val) {
+            if (val) {
+                state.searchedUser.background_colour = val
+            } else {
+                state.searchedUser.background_colour = null
+            }
 
+        },
         setSearchedUserEmail(state, val) {
             if (val) {
                 state.searchedUser.email = val
@@ -353,6 +386,20 @@ export const store = new Vuex.Store({
                 state.editoYourProfilesBool = val
             } else {
                 state.editoYourProfilesBool = false
+            }
+        },
+        setShowFooter(state, val) {
+            if (val) {
+                state.showFooter = val
+            } else {
+                state.showFooter = false
+            }
+        },
+        setShowNavBar(state, val) {
+            if (val) {
+                state.showNavBar = val
+            } else {
+                state.showNavBar = false
             }
         },
     }
