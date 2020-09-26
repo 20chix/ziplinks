@@ -37,7 +37,7 @@
         <v-flex>
           <center>
             <br />
-            <h1 class="display-3">The only link you'll ever share</h1>
+            <h1 class="display-3" data-cy="landing-display-header">The only link you'll ever share</h1>
             <br />
             <br />
             <h2 class="display-0.5 font-weight-light">Create a profile.</h2>
