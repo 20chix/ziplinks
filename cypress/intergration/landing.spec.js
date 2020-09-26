@@ -9,6 +9,7 @@ describe('Landing page test', () => {
     cy.visit('/').then(() => {
       // header
       cy.getByDataCy('landing-display-header').contains('The only link you\'ll ever need, for free');
+      cy.getByDataCy('header-signup-button').contains('Signup');
       // ziplinks button
       cy.getByDataCy('ziplinks-button').contains('ziplinks.me/ziplinks');
       // learn more button
