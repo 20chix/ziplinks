@@ -11,7 +11,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-btn large depressed color="white" @click="signup()">
+      <v-btn large depressed color="white" @click="signup()" data-cy="header-signup-button">
         <v-icon size="25">mdi-login</v-icon>Signup
       </v-btn>
     </v-app-bar>
