@@ -65,6 +65,7 @@
                 color="orange"
                 x-large
                 href="https://ziplinks.me/ziplinks"
+                data-cy="ziplinks-button"
                 target="_blank"
                 >ziplinks.me/ziplinks</v-btn
               >
@@ -78,9 +79,10 @@
               color="black"
               x-large
               href="#how_it_works"
+              data-cy="ziplinks-button-learn-more"
               >Learn More</v-btn
             >
-            <v-btn class="ma-4" rounded color="black" dark x-large to="/login"
+            <v-btn class="ma-4" rounded color="black" dark x-large to="/login" data-cy="ziplinks-button-sign-up" 
               >Sign Up</v-btn
             >
 
