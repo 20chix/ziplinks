@@ -1,7 +1,7 @@
 <center><h1> ZipLinks</h1></center>
 <p align="center">
   <a href="https://vuetifyjs.com" target="_blank">
-    <img alt="Vuetify Logo" width="100" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_logo.png?alt=media&token=fc99b485-d901-4e1d-b395-8d3b0c79706d">
+    <img alt="ZipLinks Logo" width="100" src="https://firebasestorage.googleapis.com/v0/b/ziplinks-c8231.appspot.com/o/ziplinks_logo_200x200.png?alt=media&token=7e416156-fb56-4d39-ae62-2b4a37fd44af">
   </a>
 </p>
 
