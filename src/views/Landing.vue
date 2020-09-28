@@ -191,6 +191,9 @@
       :value="value"
       auto-draw
     ></v-sparkline>
+                <br />
+            <br />
+            <br />
   </div>
 </template>
 
