@@ -16,7 +16,7 @@ const router = new Router({
     {
       path: '/login',
       name: 'Login',
-      component: () => import(/* webpackChunkName: "about" */ '../views/Auth/Login.vue')
+      component: () => import(/* webpackChunkName: "about" */ '../components/Auth/Login.vue')
     },
     {
       path: '/:id',
@@ -34,7 +34,7 @@ const router = new Router({
       }
     }
   ]
-})
+}) 
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)

@@ -60,12 +60,12 @@
 </template>
 
 <script>
-import AddSocialProfile from "./QuickAdd/addSocialProfile";
-import EditSocialProfile from "./QuickAdd/editSocialProfile";
+import AddSocialProfile from "../QuickAdd/AddEditProfiles/addSocialProfile";
+import EditSocialProfile from "../QuickAdd/AddEditProfiles/editSocialProfile";
 import { mapState } from "vuex";
 
 export default {
-  name: "QuickAdd",
+  name: "quickAdd",
 
   data: () => ({
     showEditProfileCard: false,
