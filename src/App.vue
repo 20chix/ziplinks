@@ -7,7 +7,7 @@
     <v-main>
       <router-view />
     </v-main>
-    <v-footer v-if="this.showFooter" width="100%" style=" bottom:0;" class="font-weight-medium">
+    <v-footer v-if="this.showFooter" width="100%" style=" bottom:0;" class="font-weight-medium" fixed>
       <v-col class="text-center" cols="12">
         {{ new Date().getFullYear() }} —
         <strong>
@@ -17,7 +17,7 @@
       </v-col>
     </v-footer>
 
-    <v-footer width="100%" style=" bottom:0;" :color="searchedUser.background_colour">
+    <v-footer width="100%" style=" bottom:0;" :color="searchedUser.background_colour" fixed >
       <v-col class="text-center" cols="12">
         <a href="https://www.patreon.com/ziplinks?fan_landing=true" target="_blank"> <strong>
           Sponsor ZipLinks
