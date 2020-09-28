@@ -88,9 +88,6 @@ export const store = new Vuex.Store({
         fetchUserProfile({ commit, state, dispatch }) {
             state.userLinks = []
             var tempUser = {};
-
-
-
             fb.storage
                 .ref("profileImages/" + state.currentUser.uid + "_200x200")
                 .getDownloadURL().then(function (url) {
@@ -173,7 +170,7 @@ export const store = new Vuex.Store({
                                                     console.log("url" + url)
                                                     state.searchedUser.userProfileImage = url;
                                                 }).catch(function (error) {
-                                                    state.searchedUser.userProfileImage = "https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/profileNotSet.png?alt=media&token=8e2606ce-bfb3-454f-a2da-e88a466758a8";
+                                                    state.searchedUser.userProfileImage = "https://firebasestorage.googleapis.com/v0/b/ziplinks-c8231.appspot.com/o/profileNotSet_200x200.png?alt=media&token=230f8b72-af01-4548-839e-e49c42a2778d";
 
                                                 });
                                             break;

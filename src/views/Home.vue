@@ -3,17 +3,10 @@
     <br>
     <div class="text-center">
       <h1 class="display-1">@{{userProfile.username}}</h1>
-
       <center>
         <EditUsername />
-       
       </center>
-      
       <br />
-      <!-- Add edit button on next feature -->
-      <!-- <v-btn class="ma-2" outlined small fab color="indigo">
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>-->
     </div>
 
     <div class="text-center">
@@ -246,7 +239,7 @@ import { store } from "../store";
 import router from "../router/";
 const fb = require("../firebaseConfig");
 import firebase from "firebase/app";
-import QuickAdd from "../components/QuickAdd";
+import QuickAdd from "../components/QuickAdd/quickAdd";
 import EditUsername from "../components/EditUsername/editUsername";
 import Colour from "../components/Colour/Colour"
 

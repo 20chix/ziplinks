@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import NavBarWithoutAuth from "./views/NavBars/NavBarWithoutAuth";
-import NavBar from "./views/NavBars/NavBar";
+import NavBarWithoutAuth from "./components/NavBars/NavBarWithoutAuth";
+import NavBar from "./components/NavBars/NavBar";
 import { mapState } from "vuex";
 import firebase from "firebase";
 
