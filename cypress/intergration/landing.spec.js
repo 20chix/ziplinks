@@ -1,3 +1,6 @@
+/**
+ * Checks that when visiting / the landing page is the first page we land on.
+ */
 describe('Landing page test', () => {
   it('URL for / redirects to the landing page', () => {
     cy.visit('/').then(() => {
@@ -5,6 +8,9 @@ describe('Landing page test', () => {
     });
   })
 
+  /**
+   * Basic check of the landing page after page redirection.
+   */
   it('Checks landing page contents', () => {
     cy.visit('/').then(() => {
       // header
