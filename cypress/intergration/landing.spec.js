@@ -14,7 +14,7 @@ describe('Landing page test', () => {
   it('Checks landing page contents', () => {
     cy.visit('/').then(() => {
       // header
-      cy.getByDataCy('landing-display-header').contains('The only link you\'ll ever need, for free');
+      cy.getByDataCy('landing-display-header').contains('The only link you\'ll ever share');
       cy.getByDataCy('header-signup-button').contains('Signup');
       // ziplinks button
       cy.getByDataCy('ziplinks-button').contains('ziplinks.me/ziplinks');
@@ -22,10 +22,6 @@ describe('Landing page test', () => {
       cy.getByDataCy('ziplinks-button-learn-more').contains('Learn More');
       // sign up button
       cy.getByDataCy('ziplinks-button-sign-up').contains('Sign Up');
-      // Donations form has 4 elements (3 inputs and 1 img)
-      cy.getByDataCy('donation-form').then(form => {
-        expect(form.children()).to.have.length(4);
-      });
     });
   });
 })
