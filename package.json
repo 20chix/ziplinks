@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "firebase": "^7.19.1",
+    "material-design-icons-iconfont": "^6.1.0",
     "resize-image": "^0.1.0",
     "vue": "^2.6.11",
     "vue-clipboard2": "^0.3.1",
