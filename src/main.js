@@ -7,6 +7,7 @@ const fb = require('./firebaseConfig')
 import {store} from './store.js'
 import '@fortawesome/fontawesome-free/css/all.css'
 import VueClipboard from 'vue-clipboard2'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 
 
