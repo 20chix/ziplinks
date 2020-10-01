@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:e2e": "$(npm bin)/cypress run"
+    "test:e2e": "./node_modules/.bin/cypress run"
   },
   "dependencies": {
     "core-js": "^3.6.5",
