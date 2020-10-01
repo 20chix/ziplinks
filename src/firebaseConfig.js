@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/auth';        // for authentication
 import 'firebase/storage';     // for storage
 import 'firebase/database';    // for realtime database
@@ -19,6 +19,7 @@ const config = {
     measurementId: process.env.VUE_APP_MESUREMENT_ID
 }
 firebase.initializeApp(config)
+firebase.analytics();
 
 // firebase utils
 const db = firebase.firestore()
