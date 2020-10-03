@@ -12,6 +12,14 @@
       <v-tab-item>
         <!-- This is the style tab -->
         <Colour />
+        <ChooseFonts />
+        <v-btn color="indigo" rounded dark block @click="previewPage()">
+          <v-icon>mdi-eye</v-icon>Preview
+        </v-btn>
+        <br />
+        <br />
+        <br />
+        <br />
       </v-tab-item>
     </v-tabs-items>
     <!-- General spinner controlled from store -->
@@ -25,6 +33,8 @@
 import Home from "../../views/Home";
 import Colour from "../Colour/Colour";
 import { mapState } from "vuex";
+import ChooseFonts from "../Fonts/chooseFonts";
+import router from "../../router";
 
 export default {
   data: () => ({
@@ -33,11 +43,15 @@ export default {
   components: {
     Home,
     Colour,
+    ChooseFonts,
   },
-    computed: {
-    ...mapState([
-      "linksLoaded"
-    ]),
+  computed: {
+    ...mapState(["linksLoaded"]),
+  },
+  methods: {
+    previewPage() {
+      router.push("/" + this.userProfile.username);
+    },
   },
 };
 </script>
