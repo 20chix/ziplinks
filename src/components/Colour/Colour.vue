@@ -62,16 +62,12 @@
       </v-form>
     </v-card>
     <br>
-    <v-btn color="indigo" rounded dark block @click="previewPage()">
-      <v-icon>mdi-eye</v-icon>Preview
-    </v-btn>
   </v-col>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { store } from "../../store";
-import router from "../../router";
 
 export default {
   name: "editUsername",
@@ -105,10 +101,7 @@ export default {
     },
     editButtonsColour() {
       store.dispatch("addUpdateButtonsColour", this.tempButtonsColour);
-    },
-    previewPage() {
-      router.push("/" + this.userProfile.username);
-    },
+    }
   },
 };
 </script>
