@@ -53,6 +53,7 @@
             outlined
             :href="userLinks.linkUrl"
             target="_blank"
+            :style="'font-family:'+searchedUser.font"
           >
             <v-icon left large v-if="userLinks.iconButton == 'Snapchat'">mdi-snapchat</v-icon>
             <v-icon left large v-if="userLinks.iconButton == 'Facebook'">mdi-facebook</v-icon>
