@@ -46,7 +46,7 @@ export default {
     ChooseFonts,
   },
   computed: {
-    ...mapState(["linksLoaded"]),
+    ...mapState(["linksLoaded", "userProfile"]),
   },
   methods: {
     previewPage() {
