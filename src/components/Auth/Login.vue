@@ -66,6 +66,7 @@
                   <v-layout row>
                     <v-flex xs12>
                       <v-text-field
+                        data-cy="login-username"
                         name="username"
                         label="Username"
                         id="username"
@@ -79,6 +80,7 @@
                   <v-layout row>
                     <v-flex xs12>
                       <v-text-field
+                        data-cy="login-email"
                         name="email"
                         label="Mail"
                         id="email"
@@ -92,6 +94,7 @@
                   <v-layout row>
                     <v-flex xs12>
                       <v-text-field
+                        data-cy="login-password"
                         name="password"
                         label="Password"
                         id="password"
