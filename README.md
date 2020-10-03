@@ -65,13 +65,16 @@ Contributions are always welcome, feel free to submit a PR, I'll review it and i
 
 ## Roadmap
 - [x] First alpha release release
+- [x] Allow user to choose a background color
+- [x] For popular social media add a 'Quick add section' where user just enter the username instead of the whole link
+- [x] When user upload profile image compress it, so it doesn't take much space in the server
+- [x] Allow user to change their username after they sign-up
 - [ ] Add some tests
 - [ ] Add QR Code feature
-- [ ] Allow user to choose a background color
-- [ ] For populare social media add a 'Quick add section' where user just enter the username instead of the whole link
-- [x] When user upload profile image compress it, so it doesn't take much space in the server
-- [ ] Allow user to change their username after they sign-up
 - [ ] Add caching feature, instead pulling all the data every time.
+- [ ] Add Stats in a separate tab, example how many views and links clicks the profile had.
+- [ ] Allow user to choose from different templates when diplaying their profiles. 
+- [ ] Allow user to re-order their buttons (tricky :))
 - [ ] Share some Love :) 
 
 
