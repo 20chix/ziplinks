@@ -66,7 +66,8 @@ export const store = new Vuex.Store({
             userID: "",
             userProfileImage: "",
             background_colour: "#FFFFFF",
-            buttons_colour: "#FFFFFF"
+            buttons_colour: "#FFFFFF",
+            font:""
         },
         userLinks: [],
         linksLoaded: false,
@@ -149,8 +150,11 @@ export const store = new Vuex.Store({
                             tempUserDetails = doc.data();
                             state.searchedUser.userID = doc.id;
                             state.searchedUser.background_colour = tempUserDetails.background_colour
-                            state.searchedUser.buttons_colour = tempUserDetails.buttons_colour
                             self.commit("setSearchedUserBackgroundColour", tempUserDetails.background_colour);
+                            state.searchedUser.buttons_colour = tempUserDetails.buttons_colour
+                            state.searchedUser.font = tempUserDetails.font
+                            self.commit("setSearchedUserFont", tempUserDetails.font)
+                            
 
                             fb.storage
                                 .ref("profileImages/" + doc.id + "_200x200")
@@ -374,7 +378,28 @@ export const store = new Vuex.Store({
                 .catch((err) => {
                     console.log(err);
                 });
-        }
+        },
+        addUpdateFont({ commit, state }, font) {
+            //Start the loading
+            commit("setLoadingLink", true)
+            fb.usersCollection
+                .doc(state.currentUser.uid)
+                .set({
+                    font: font,
+                }, { merge: true })
+                .then(() => {
+                    commit("setSearchedUserFont", font)
+                    console.log(font)
+                    //Stop loading
+                    commit("setLoadingLink", false)
+                })
+                .catch((err) => {
+                    console.log(err);
+                    //Stop loading
+                    commit("setLoadingLink", false)
+                });
+
+        },
 
     },
     mutations: {
@@ -401,6 +426,14 @@ export const store = new Vuex.Store({
                 state.searchedUser.background_colour = val
             } else {
                 state.searchedUser.background_colour = null
+            }
+
+        },
+        setSearchedUserFont(state, val) {
+            if (val) {
+                state.searchedUser.font = val
+            } else {
+                state.searchedUser.font = null
             }
 
         },
