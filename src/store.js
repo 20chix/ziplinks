@@ -11,7 +11,6 @@ Vue.use(Vuex)
 // handle page reload
 fb.auth.onAuthStateChanged(user => {
     store.commit("setLoadingLink", true)
-
     if (user) {
         store.commit('setCurrentUser', user)
         store.dispatch('fetchUserProfile')
@@ -67,7 +66,7 @@ export const store = new Vuex.Store({
             userProfileImage: "",
             background_colour: "#FFFFFF",
             buttons_colour: "#FFFFFF",
-            font:""
+            font: ""
         },
         userLinks: [],
         linksLoaded: false,
@@ -75,6 +74,7 @@ export const store = new Vuex.Store({
         editoYourProfilesBool: false,
         showFooter: true,
         showNavBar: true,
+        imageCropped: false
 
     },
 
@@ -89,33 +89,13 @@ export const store = new Vuex.Store({
         fetchUserProfile({ commit, state, dispatch }) {
             state.userLinks = []
             var tempUser = {};
-            fb.storage
-                .ref("profileImages/" + state.currentUser.uid + "_200x200")
-                .getDownloadURL().then(function (url) {
-                    // By nowe the image shoulld be risezed to 200 by 200, get the url
-                    tempUser.userProfileImage = url;
 
-                    fb.usersCollection
-                        .doc(state.currentUser.uid)
-                        .set({
-                            profileImage: url,
-                        }, { merge: true })
-                        .then(() => {
-                            fb.usersCollection.doc(state.currentUser.uid).get().then(res => {
-                                commit('setUserProfile', res.data())
-                            }).catch(err => {
-                                console.log(err)
-                            })
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                            //Stop loading
-                            commit("setLoadingLink", false)
-                        });
-
-                }).catch(function (error) {
-                    console.log(error)
-                });
+            fb.usersCollection.doc(state.currentUser.uid).get().then(res => {
+                commit('setUserProfile', res.data())
+                commit("setLoadingLink", false)
+            }).catch(err => {
+                console.log(err)
+            })
 
             // console.log("User data")
             //  console.log(res.data())
@@ -154,7 +134,7 @@ export const store = new Vuex.Store({
                             state.searchedUser.buttons_colour = tempUserDetails.buttons_colour
                             state.searchedUser.font = tempUserDetails.font
                             self.commit("setSearchedUserFont", tempUserDetails.font)
-                            
+
 
                             fb.storage
                                 .ref("profileImages/" + doc.id + "_200x200")
@@ -320,7 +300,7 @@ export const store = new Vuex.Store({
 
                     } else {
                         // Stop loading
-                        this.commit("setLoadingLink", false)
+                        commit("setLoadingLink", false)
                     }
                 })
                 .catch(function (error) {
@@ -398,6 +378,47 @@ export const store = new Vuex.Store({
                     //Stop loading
                     commit("setLoadingLink", false)
                 });
+
+        },
+        updateImageRef({ commit, state }) {
+
+            var tempDownloadURL = "";
+            fb.storage
+                .ref("profileImages/" + state.currentUser.uid + "_200x200")
+                .getDownloadURL()
+                .then(function (downloadURL) {
+                    console.log("File available at", downloadURL);
+                    tempDownloadURL = downloadURL
+                    fb.usersCollection
+                        .doc(state.currentUser.uid)
+                        .update({
+                            profileImage: downloadURL,
+                        })
+                        .then(function () {
+                            console.log("Document successfully updated!");
+                            commit("setImageProfile", downloadURL)
+                            commit("setLoadingImageChange", false);
+                        })
+                        .catch(function (error) {
+                            console.error(error);
+                        })
+                });
+
+        },
+        imageCropped({ commit, state }, downloadURL) {
+            //Start the loading
+            // Upload completed successfully, now we can get the download URL
+            fb.storage
+                .ref("profileImages/" + tempUser.uid + "_200x200")
+                .getDownloadURL()
+                .then(function (downloadURL) {
+                    console.log("File available at", downloadURL);
+                    dispatch("updateImageRef", downloadURL);
+                }).catch(function (error) {
+                    commit("setImageCropped", false)
+                })
+
+
 
         },
 
@@ -493,6 +514,22 @@ export const store = new Vuex.Store({
                 state.showNavBar = val
             } else {
                 state.showNavBar = false
+            }
+        },
+        setImageCropped(state, val) {
+            if (val) {
+                state.imageCropped = true
+            } else {
+                state.imageCropped = false
+            }
+        },
+        setImageProfile(state, val) {
+            if (val) {
+                state.userProfile.profileImage = val
+            } else {
+                state.userProfile.profileImage = "https://firebasestorage.googleapis.com/v0/b/ziplinks-c8231.appspot.com/o/profileNotSet_200x200.png?alt=media&token=230f8b72-af01-4548-839e-e49c42a2778d"
+
+
             }
         },
     }
