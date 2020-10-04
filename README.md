@@ -73,10 +73,9 @@ Contributions are always welcome, feel free to submit a PR, I'll review it and i
 - [ ] Add QR Code feature
 - [ ] Add caching feature, instead pulling all the data every time.
 - [ ] Add Stats in a separate tab, example how many views and links clicks the profile had.
-- [ ] Allow user to choose from different templates when diplaying their profiles. 
+- [ ] Allow user to choose from different templates when displaying their profiles. 
 - [ ] Allow user to re-order their buttons (tricky :))
 - [ ] Share some Love :) 
-
 
 
 
