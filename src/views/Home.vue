@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <br>
+    <br />
     <div class="text-center">
-      <h1 class="display-1">@{{userProfile.username}}</h1>
+      <h1 class="display-1">@{{ userProfile.username }}</h1>
       <center>
         <EditUsername />
       </center>
@@ -10,7 +10,7 @@
     </div>
 
     <div class="text-center">
-      <div v-if="this.userProfile.profileImage!= null">
+      <div v-if="this.userProfile.profileImage != null">
         <v-avatar
           :size="150"
           :max-height="150"
@@ -26,7 +26,10 @@
           />
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
             </v-row>
           </template>
         </v-avatar>
@@ -55,7 +58,7 @@
               color="orange"
               large
               readonly
-              :value=" 'ziplinks.me/'+userProfile.username"
+              :value="'ziplinks.me/' + userProfile.username"
             >
               <template v-slot:prepend>
                 <v-tooltip bottom>
@@ -67,7 +70,7 @@
               </template>
               <template v-slot:append-outer>
                 <v-btn
-                  v-clipboard:copy="'ziplinks.me/'+userProfile.username"
+                  v-clipboard:copy="'ziplinks.me/' + userProfile.username"
                   v-clipboard:success="onCopy"
                   v-clipboard:error="onError"
                 >
@@ -96,15 +99,22 @@
     </div>
 
     <center>
-      <v-col cols="12" sm="6" v-for="_userLinks in userLinks" :key="_userLinks.message">
+      <v-col
+        cols="12"
+        sm="6"
+        v-for="_userLinks in userLinks"
+        :key="_userLinks.message"
+      >
         <!-- Only show links that are not int quick link list -->
         <v-card
           class="mx-auto"
           outlined
-          v-if="! _userLinks.linkUrl.includes('instagram.com') &&
-                ! _userLinks.linkUrl.includes('facebook.com')  &&
-                ! _userLinks.linkUrl.includes('twitter.com')   &&
-                ! _userLinks.linkUrl.includes('tiktok.com')"
+          v-if="
+            !_userLinks.linkUrl.includes('instagram.com') &&
+            !_userLinks.linkUrl.includes('facebook.com') &&
+            !_userLinks.linkUrl.includes('twitter.com') &&
+            !_userLinks.linkUrl.includes('tiktok.com')
+          "
         >
           <v-col cols="12" sm="12">
             <v-form ref="form" v-model="valid" lazy-validation>
@@ -201,7 +211,16 @@
       <v-container grid-list-xl>
         <v-layout row justify-space-around>
           <v-flex md6>
-            <v-btn color="teal" outlined rounded @click="()=>{this.showForm = !this.showForm}">
+            <v-btn
+              color="teal"
+              outlined
+              rounded
+              @click="
+                () => {
+                  this.showForm = !this.showForm;
+                }
+              "
+            >
               <v-icon>mdi-plus</v-icon>Add another link
             </v-btn>
           </v-flex>
@@ -241,7 +260,7 @@ const fb = require("../firebaseConfig");
 import firebase from "firebase/app";
 import QuickAdd from "../components/QuickAdd/quickAdd";
 import EditUsername from "../components/EditUsername/editUsername";
-import Colour from "../components/Colour/Colour"
+import Colour from "../components/Colour/Colour";
 
 export default {
   name: "Home",
@@ -290,17 +309,20 @@ export default {
 
     message: "Copy These Text",
     showToolTip: false,
-    tab: null
+    tab: null,
+    tempImageProfile: null,
   }),
-  beforeMount(){
-    this.$store.commit("setShowFooter", true)
-    this.$store.commit("setShowNavBar", true)
-    
+  beforeMount() {
+    this.$store.commit("setShowFooter", true);
+    this.$store.commit("setShowNavBar", true);
+  },
+  created() {
+    console.log(this.currentUser.uid);
   },
   components: {
     QuickAdd,
     EditUsername,
-    Colour
+    Colour,
   },
   computed: {
     ...mapState([
@@ -309,10 +331,8 @@ export default {
       "imageLoaded",
       "linksLoaded",
       "userLinks",
+      "imageCropped",
     ]),
-  },
-  ccreated(){
-console.log(this.userProfile)
   },
   methods: {
     onCopy() {
@@ -453,44 +473,20 @@ console.log(this.userProfile)
           var progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+
+          if (progress == 100) {
+            
+              setTimeout(() => {
+                // Upload completed successfully, now we can get the download URL
+              store.dispatch("updateImageRef")
+              }, 3000);
+            
+          }
         },
         function (error) {
           // A full list of error codes is available at
           // https://firebase.google.com/docs/storage/web/handle-errors
           console.log(error);
-        },
-        function () {
-          // Upload completed successfully, now we can get the download URL
-          fb.storage
-            .ref("profileImages/" + tempUser.uid + "_200x200")
-            .getDownloadURL()
-            .then(function (downloadURL) {
-              //console.log("File available at", downloadURL);
-              self.imageStorageUrl = downloadURL;
-
-              //console.log("File available at", downloadURL);
-              // var currentDate = new Date();
-              // console.log("image url plus date " + downloadURL + currentDate);
-              self.spinnerBooleanCheck = false;
-              fb.usersCollection
-                .doc(tempUser.uid)
-                .update({
-                  profileImage: downloadURL,
-                })
-                .then(function () {
-                  //console.log("Document successfully updated!");
-                  store.dispatch("fetchUserProfile");
-                })
-                .then(function () {
-                  // console.log("Document successfully updated!");
-
-                  store.commit("setLoadingImageChange", false);
-                })
-                .catch(function (error) {
-                  // The document probably doesn't exist.
-                  console.error("Error updating document: ", error);
-                });
-            });
         }
       );
     },
