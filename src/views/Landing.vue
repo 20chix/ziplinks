@@ -71,8 +71,6 @@
               >
             </p>
 
-            <!-- <h1 class="display-0.5">Signup for free, and use it for free!</h1> -->
-
             <v-btn
               class="ma-4"
               outlined
@@ -96,7 +94,6 @@
             <v-col cols="12" sm="10" md="8" lg="6" xl="4">
               <v-card class="mx-auto" elevation="0" max-width="90%">
                 <!-- <v-card-title>Example of @ziplinks page</v-card-title> -->
-
                 <v-img src="../assets/landing_gif.gif" height="70%"></v-img>
               </v-card>
               <br />
