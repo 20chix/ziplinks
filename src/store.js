@@ -404,7 +404,6 @@ export const store = new Vuex.Store({
                 }).catch(function (error) {
                     console.error(error);
                 });
-
         },
         imageCropped({ commit, state }, downloadURL) {
             //Start the loading
