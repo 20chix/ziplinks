@@ -134,8 +134,7 @@ export const store = new Vuex.Store({
                             state.searchedUser.buttons_colour = tempUserDetails.buttons_colour
                             state.searchedUser.font = tempUserDetails.font
                             self.commit("setSearchedUserFont", tempUserDetails.font)
-
-
+                            self.dispatch("incrementViews")
                             fb.storage
                                 .ref("profileImages/" + doc.id + "_200x200")
                                 .getDownloadURL().then(function (url) {
@@ -148,10 +147,10 @@ export const store = new Vuex.Store({
                                         case 'storage/object-not-found':
                                             // File doesn't exist
                                             fb.storage
-                                                .ref("profileImages/" + doc.id)
+                                                .ref("profileImages/" + doc.id + "_200x200")
                                                 .getDownloadURL().then(function (url) {
                                                     // Insert url into an <img> tag to "download"
-                                                    console.log("url" + url)
+                                                    console.log("url " + url)
                                                     state.searchedUser.userProfileImage = url;
                                                 }).catch(function (error) {
                                                     state.searchedUser.userProfileImage = "https://firebasestorage.googleapis.com/v0/b/ziplinks-c8231.appspot.com/o/profileNotSet_200x200.png?alt=media&token=230f8b72-af01-4548-839e-e49c42a2778d";
@@ -345,9 +344,9 @@ export const store = new Vuex.Store({
                 });
 
         },
-        incrementViews({ commit, state }) {
+        incrementViews({ commit, state } ) {
             fb.usersCollection
-                .doc(state.currentUser.uid)
+                .doc( state.searchedUser.userID)
                 .set({
                     views: firebase.firestore.FieldValue.increment(1)
                 }, { merge: true })
@@ -387,7 +386,7 @@ export const store = new Vuex.Store({
                 .ref("profileImages/" + state.currentUser.uid + "_200x200")
                 .getDownloadURL()
                 .then(function (downloadURL) {
-                    console.log("File available at", downloadURL);
+                    //console.log("File available at", downloadURL);
                     tempDownloadURL = downloadURL
                     fb.usersCollection
                         .doc(state.currentUser.uid)
@@ -402,6 +401,8 @@ export const store = new Vuex.Store({
                         .catch(function (error) {
                             console.error(error);
                         })
+                }).catch(function (error) {
+                    console.error(error);
                 });
 
         },
