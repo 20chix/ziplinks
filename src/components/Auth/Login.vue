@@ -18,7 +18,11 @@
         <v-card>
           <v-card-text>
             <v-container>
-              <div :class="{ 'signup-form': !showLoginForm && !showForgotPassword }">
+              <div
+                :class="{
+                  'signup-form': !showLoginForm && !showForgotPassword,
+                }"
+              >
                 <br />
                 <form v-if="showLoginForm" @submit.prevent>
                   <center>
@@ -52,12 +56,22 @@
                   </v-layout>
                   <v-layout row>
                     <v-flex xs12>
-                      <v-btn type="submit" color="primary" block large @click="login">Log in</v-btn>
+                      <v-btn
+                        type="submit"
+                        color="primary"
+                        block
+                        large
+                        @click="login"
+                        >Log in</v-btn
+                      >
                     </v-flex>
                   </v-layout>
                 </form>
 
-                <form v-if="!showLoginForm && !showForgotPassword" @submit.prevent>
+                <form
+                  v-if="!showLoginForm && !showForgotPassword"
+                  @submit.prevent
+                >
                   <br />
                   <center>
                     <h1>Sign up</h1>
@@ -106,7 +120,14 @@
                   </v-layout>
                   <v-layout row>
                     <v-flex xs12>
-                      <v-btn type="submit" color="primary" block large @click="signup">Sign up</v-btn>
+                      <v-btn
+                        type="submit"
+                        color="primary"
+                        block
+                        large
+                        @click="signup"
+                        >Sign up</v-btn
+                      >
                     </v-flex>
                   </v-layout>
                 </form>
@@ -218,7 +239,7 @@ export default {
         });
     },
     signup() {
-     firebase.analytics().logEvent("signup_button_pressed");
+      firebase.analytics().logEvent("signup_button_pressed");
 
       this.errorMsg = "";
       this.performingRequest = true;
@@ -249,6 +270,10 @@ export default {
                 )
                 .then((user) => {
                   self.$store.commit("setCurrentUser", user.user);
+                  var file = require("../../assets/profileNotSet.png"); // use the Blob or File API
+                  var pathReference = fb.storage
+                    .ref("profileImages/" + user.user.uid)
+                    .putString("https://firebasestorage.googleapis.com/v0/b/ziplinks-c8231.appspot.com/o/profileNotSet_200x200.png?alt=media&token=230f8b72-af01-4548-839e-e49c42a2778d");
 
                   // user.user.sendEmailVerification();
                   // create user obj

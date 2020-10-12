@@ -35,9 +35,9 @@
           </v-avatar>
         </div>
         <br />
+
         <h1
-          class="display-1"
-          v-if="!this.linksLoaded && this.searchedUser.userExist && this.mounted"
+          v-if="!this.linksLoaded && this.searchedUser.userExist && this.mounted" :style="'font-family:'+searchedUser.font === 'null' ? searchedUser.font : '' +';color:'+searchedUser.buttons_colour "
         >@{{searchedUser.username}}</h1>
         <h1 class="display-1" v-else-if="!this.linksLoaded">
           This user
@@ -112,9 +112,8 @@ export default {
   beforeMount() {
     this.$store.commit("setShowFooter", false);
     this.$store.commit("setShowNavBar", false);
-    this.$store.commit("setSearchedUserUsername", this.$route.params.id);
-    this.$store.dispatch("fetchUserFromLinkOrSearchBar");
-    this.$store.dispatch("incrementViews");
+
+    //this.$store.dispatch("incrementViews");
 
     if (this.searchedUser.background_colour === null) {
       this.tempColour == "#000000";
@@ -129,6 +128,8 @@ export default {
   },
   mounted() {
     this.mounted = true;
+    this.$store.commit("setSearchedUserUsername", this.$route.params.id);
+    this.$store.dispatch("fetchUserFromLinkOrSearchBar");
   },
   created() {
     firebase.analytics().logEvent("profile",{
