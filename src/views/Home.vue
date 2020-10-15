@@ -3,7 +3,11 @@
     <br />
     <div class="text-center">
       <h1 class="display-1">@{{ userProfile.username }}</h1>
-      <center>
+      <v-btn class="mx-2" fab dark small color="primary" @click="showEditUsername = !showEditUsername">
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+      <br>
+      <center v-if="showEditUsername">
         <EditUsername />
       </center>
       <br />
@@ -266,6 +270,7 @@ export default {
   name: "Home",
   data: () => ({
     showForm: true,
+    showEditUsername: false,
     lazy: false,
     valid: false,
     validAddLink: true,
@@ -475,12 +480,10 @@ export default {
           console.log("Upload is " + progress + "% done");
 
           if (progress == 100) {
-            
-              setTimeout(() => {
-                // Upload completed successfully, now we can get the download URL
-              store.dispatch("updateImageRef")
-              }, 3000);
-            
+            setTimeout(() => {
+              // Upload completed successfully, now we can get the download URL
+              store.dispatch("updateImageRef");
+            }, 3000);
           }
         },
         function (error) {

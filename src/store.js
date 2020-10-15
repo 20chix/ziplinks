@@ -133,6 +133,7 @@ export const store = new Vuex.Store({
                             self.commit("setSearchedUserBackgroundColour", tempUserDetails.background_colour);
                             state.searchedUser.buttons_colour = tempUserDetails.buttons_colour
                             state.searchedUser.font = tempUserDetails.font
+                            console.log("fontsss " + tempUserDetails.font)
                             self.commit("setSearchedUserFont", tempUserDetails.font)
                             self.dispatch("incrementViews")
                             fb.storage
@@ -150,7 +151,7 @@ export const store = new Vuex.Store({
                                                 .ref("profileImages/" + doc.id + "_200x200")
                                                 .getDownloadURL().then(function (url) {
                                                     // Insert url into an <img> tag to "download"
-                                                    console.log("url " + url)
+                                                    //console.log("url " + url)
                                                     state.searchedUser.userProfileImage = url;
                                                 }).catch(function (error) {
                                                     state.searchedUser.userProfileImage = "https://firebasestorage.googleapis.com/v0/b/ziplinks-c8231.appspot.com/o/profileNotSet_200x200.png?alt=media&token=230f8b72-af01-4548-839e-e49c42a2778d";
@@ -218,12 +219,14 @@ export const store = new Vuex.Store({
                         })
                         .then(() => {
 
+                            socialLink.docId = docRef.id
                             // Add the new Social profile into userLinks array
-                            state.userLinks.push(socialLink);
+                            //state.userLinks.push(socialLink);
+                            commit("setUserLinks", socialLink)
                             // Show Edit Card just in case
-                            this.commit("setEditYourProfilesBool", true);
+                            commit("setEditYourProfilesBool", true);
                             // Stop loading  
-                            this.commit("setLoadingLink", false)
+                            commit("setLoadingLink", false)
 
                         });
                 })
@@ -248,33 +251,35 @@ export const store = new Vuex.Store({
                 })
                 .catch((err) => {
                     console.log(err);
+                    this.commit("setLoadingLink", false)
                 });
         },
-        deleteSocialMediaProfile({ commit, state }, docId) {
+        deleteSocialMediaProfile({ commit, state }, payload) {
+
             //Start spinner
             this.commit("setLoadingLink", true)
-
             firebase
                 .firestore()
                 .collection("users/")
                 .doc(state.currentUser.uid)
                 .collection("links")
-                .doc(docId)
+                .doc(payload.tempDocId)
                 .delete()
-                .then(() => {
-                    this.commit("setLoadingLink", false)
-                    state.userLinks.forEach(function (arrayItem, index) {
-                        if (arrayItem.docId === docId)
-                            state.userLinks.splice(index, 1);
-                    });
+                .then(() => {            
+                    state.userLinks.splice(payload.tempIndex, 1);
+                    commit("setLoadingLink", false)
+                    if(state.userLinks.length == 0 || state.userLinks === undefined)
+                        this.commit("setEditYourProfilesBool", false);
+                    
                 })
                 .catch((err) => {
+                    this.commit("setLoadingLink", false)
                     console.log(err);
                 });
         },
         editUsername({ commit, state }, username) {
+            // Start Loading 
             commit("setLoadingLink", true)
-            console.log("edit username " + username)
             fb.usersCollection
                 .where("username_lowercase", "==", username)
                 .get()
@@ -288,8 +293,8 @@ export const store = new Vuex.Store({
                             }, { merge: true })
                             .then(() => {
                                 //Stop loading
+                                state.userProfile.username = username
                                 commit("setLoadingLink", false)
-                                window.location.reload()
                             })
                             .catch((err) => {
                                 console.log(err);
@@ -344,22 +349,18 @@ export const store = new Vuex.Store({
                 });
 
         },
-        incrementViews({ commit, state } ) {
+        incrementViews({ commit, state }) {
             fb.usersCollection
-                .doc( state.searchedUser.userID)
+                .doc(state.searchedUser.userID)
                 .set({
                     views: firebase.firestore.FieldValue.increment(1)
                 }, { merge: true })
-                .then(() => {
-                    //add one to views
-                    // console.log("Added one to views")
-                })
                 .catch((err) => {
                     console.log(err);
                 });
         },
         addUpdateFont({ commit, state }, font) {
-            //Start the loading
+            //Start loading
             commit("setLoadingLink", true)
             fb.usersCollection
                 .doc(state.currentUser.uid)
@@ -368,7 +369,6 @@ export const store = new Vuex.Store({
                 }, { merge: true })
                 .then(() => {
                     commit("setSearchedUserFont", font)
-                    console.log(font)
                     //Stop loading
                     commit("setLoadingLink", false)
                 })
@@ -454,7 +454,7 @@ export const store = new Vuex.Store({
             if (val) {
                 state.searchedUser.font = val
             } else {
-                state.searchedUser.font = null
+                state.searchedUser.font = ""
             }
 
         },

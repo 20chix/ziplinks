@@ -6,11 +6,11 @@
         :prepend-icon="iconName"
         :label="labelName"
         large
-        v-model="tempValueTextField"
+        v-model="valueTextfield"
       >
         <template v-slot:prepend></template>
         <template v-slot:append-outer>
-          <v-btn text  @click="updateSocialMediaProfile(valueBeforeFilter, tempValueTextField)">
+          <v-btn text  @click="updateSocialMediaProfile(valueBeforeFilter, valueTextfield)">
             <v-icon left>fas fa-edit</v-icon>Update
           </v-btn>
           <v-btn color="red" fab x-small dark @click="deleteSocialMediaProfile()">
@@ -44,11 +44,8 @@ export default {
     "valueTextfield",
     "valueBeforeFilter",
     "docId",
+    "index",
   ],
-  beforeMount() {
-    this.tempValueTextField = this.valueTextfield;
-  },
-
   methods: {
     //Twitter
     //Tik Tok
@@ -81,7 +78,11 @@ export default {
       store.dispatch("updateSocialProfile", this.tempSocialLink);
     },
     deleteSocialMediaProfile(){
-      store.dispatch("deleteSocialMediaProfile", this.docId);
+      var tempIndex = this.index;
+      var tempDocId = this.docId
+      var payload = { tempIndex, tempDocId }
+      store.dispatch("deleteSocialMediaProfile", payload);
+      //console.log("index(edit comp): " + this.index)
     }
   },
 };

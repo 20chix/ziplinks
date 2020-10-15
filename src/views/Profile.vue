@@ -37,7 +37,7 @@
         <br />
 
         <h1
-          v-if="!this.linksLoaded && this.searchedUser.userExist && this.mounted" :style="'font-family:'+searchedUser.font === 'null' ? searchedUser.font : '' +';color:'+searchedUser.buttons_colour "
+          v-if="!this.linksLoaded && this.searchedUser.userExist && this.mounted" :style="'font-family:'+ searchedUser.font +';color:'+searchedUser.buttons_colour "
         >@{{searchedUser.username}}</h1>
         <h1 class="display-1" v-else-if="!this.linksLoaded">
           This user
@@ -53,7 +53,7 @@
             outlined
             :href="userLinks.linkUrl"
             target="_blank"
-            :style="'font-family:'+searchedUser.font"
+            :style="'font-family:'+ searchedUser.font "
           >
             <v-icon left large v-if="userLinks.iconButton == 'Snapchat'">mdi-snapchat</v-icon>
             <v-icon left large v-if="userLinks.iconButton == 'Facebook'">mdi-facebook</v-icon>
@@ -98,6 +98,7 @@ export default {
   data: () => ({
     mounted: false,
     tempColour: "#FFFFFF",
+    tempFont: "",
   }),
   computed: {
     ...mapState([
@@ -124,12 +125,13 @@ export default {
         this.tempColour = "#" + this.searchedUser.background_colour;
       }
     }
-    
   },
   mounted() {
     this.mounted = true;
     this.$store.commit("setSearchedUserUsername", this.$route.params.id);
     this.$store.dispatch("fetchUserFromLinkOrSearchBar");
+
+    
   },
   created() {
     firebase.analytics().logEvent("profile",{
