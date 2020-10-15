@@ -63,6 +63,8 @@ export default {
         this.tempSocialLink.nameButton = "Tik Tok";
       }
       store.dispatch("addSocialProfile", this.tempSocialLink);
+      this.tempSocialLink = {}
+      this.tempValueTextField = ""
     },
   },
 };

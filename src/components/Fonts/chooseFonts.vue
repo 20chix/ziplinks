@@ -64,13 +64,15 @@ export default {
   },
   methods: {
     editFontSelection() {
-      store.dispatch("addUpdateFont", this.radios );
+      store.dispatch("addUpdateFont", this.radios);
     },
   },
-  beforeMount(){
-      console.log(this.searchedUser.font)
-      this.radios = this.searchedUser.font
-
+  beforeMount() {
+    if (this.searchedUser.font != "" && this.searchedUser.font != null) {
+      this.radios = this.searchedUser.font;
+    } else {
+      this.radios = "Default";
+    }
   },
   computed: {
     ...mapState(["searchedUser"]),
