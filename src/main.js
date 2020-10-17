@@ -8,13 +8,14 @@ import {store} from './store.js'
 import '@fortawesome/fontawesome-free/css/all.css'
 import VueClipboard from 'vue-clipboard2'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import VueMeta from 'vue-meta'
 
 
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.use(VueClipboard)
-
+Vue.use(VueMeta)
 Vue.use(vuetify, {
   iconfont: 'fa'
  })

@@ -138,7 +138,21 @@ export default {
       name: this.searchedUser.username
     } );
   },
-
+    //insert the following code for vue-meta to work
+    metaInfo() {
+        return {
+            title: `${this.searchedUser.username}`,
+            meta: [
+                { name: 'description', content: this.searchedUser.username + ' ZipLinks profile'},
+                { property: 'og:title', content: this.searchedUser.username},
+                { property: 'og:site_name', content: 'ZipLinks'},
+                { property: 'og:description', content: this.searchedUser.username + ' ZipLinks profile'},
+                { property: 'og:type', content: 'profile'},
+                { property: 'og:url', content: 'https://ziplinks.me/' + this.searchedUser.username},
+                { property: 'og:image', content: this.searchedUser.userProfileImage }    
+            ]
+        }
+    },
   watch: {
     // Check if the route is been called
     $route(to, from) {
