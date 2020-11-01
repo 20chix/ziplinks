@@ -19,7 +19,8 @@
   <br>
 <p align="center">
   <a href="https://ziplinks.me" target="_blank">
-    <img alt="ZipLinks Logo" width="100" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample2.png?alt=media&token=25eda8f5-6006-4d33-8bed-36d3abdb7d64">
+    <img alt="ZipLinks Logo" width="400" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample2.png?alt=media&token=25eda8f5-6006-4d33-8bed-36d3abdb7d64">
+        <img alt="ZipLinks Logo" width="400" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample2.png?alt=media&token=25eda8f5-6006-4d33-8bed-36d3abdb7d64">
   </a>
 </p>
 </p>
