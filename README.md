@@ -1,6 +1,6 @@
 <center><h1> ZipLinks</h1></center>
 <p align="center">
-  <a href="https://vuetifyjs.com" target="_blank">
+  <a href="https://ziplinks.me" target="_blank">
     <img alt="ZipLinks Logo" width="100" src="https://firebasestorage.googleapis.com/v0/b/ziplinks-c8231.appspot.com/o/ziplinks_logo_200x200.png?alt=media&token=7e416156-fb56-4d39-ae62-2b4a37fd44af">
   </a>
 </p>
@@ -17,7 +17,11 @@
   </a>
  
   <br>
-
+<p align="center">
+  <a href="https://ziplinks.me" target="_blank">
+    <img alt="ZipLinks Logo" width="100" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample2.png?alt=media&token=25eda8f5-6006-4d33-8bed-36d3abdb7d64">
+  </a>
+</p>
 </p>
 
 
