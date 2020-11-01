@@ -38,20 +38,25 @@ https://ziplinks.me/ziplinks
 
 #### Screenshots 
 
+<br>
 <p align="center">
   <a href="https://ziplinks.me" target="_blank">
     <img alt="ZipLinks Logo" width="400" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample2.png?alt=media&token=25eda8f5-6006-4d33-8bed-36d3abdb7d64">
         <img alt="ZipLinks Logo" width="400" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample.png?alt=media&token=652de470-690f-456b-96c5-3295892cdf85">
   </a>
 </p>
+<br>
+
 
 #### Style settings
 
+<br>
 <p align="center">
   <a href="https://ziplinks.me" target="_blank">
     <img alt="ZipLinks Logo" width="400" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample3.png?alt=media&token=9f7626fa-2747-4712-a081-f9bb3b458ae0">
   </a>
 </p>
+<br>
 
 ## Usage
 
