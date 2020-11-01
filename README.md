@@ -44,6 +44,15 @@ https://ziplinks.me/ziplinks
         <img alt="ZipLinks Logo" width="400" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample.png?alt=media&token=652de470-690f-456b-96c5-3295892cdf85">
   </a>
 </p>
+
+#### Style settings
+
+<p align="center">
+  <a href="https://ziplinks.me" target="_blank">
+    <img alt="ZipLinks Logo" width="400" src="https://firebasestorage.googleapis.com/v0/b/glanceprofile.appspot.com/o/ziplinks_sample3.png?alt=media&token=9f7626fa-2747-4712-a081-f9bb3b458ae0">
+  </a>
+</p>
+
 ## Usage
 
 In order to get up and running with this project do the following
