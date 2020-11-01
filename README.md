@@ -55,6 +55,8 @@ npm run serve
 
 - Now you'll be able to talk to your firebase project.
 
+- In order to save storage in Firebase Cloud Storage I installed an extension called resize image, which resize an image to 200x200. This extension can only be used if you have a Blaze Plan.
+
 - If you have any issues or questions, raise an issue and I'll try to get back to you as soon as I have time
 
 
